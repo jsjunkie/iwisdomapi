@@ -10,6 +10,6 @@ app.get('/wisdom', function (req, res){
 	res.send('All wisdom');
 });
 
-app.listen('3400', function(){
-	console.log('Listening to port: 3400');
+app.listen(process.env.PORT, function(){
+	console.log('Listening to port:'+process.env.PORT);
 });

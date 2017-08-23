@@ -1,0 +1,14 @@
+{
+  "name": "iwisdom-api",
+  "version": "1.0.0",
+  "description": "API for iWisdom Application",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "author": "BigLambda.co",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.15.4"
+  }
+}

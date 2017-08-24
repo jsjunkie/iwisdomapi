@@ -3,11 +3,18 @@ var mongodb = require('mongodb');
 var ObjectID = mongodb.ObjectID;
 
 var app = express();
+
+app.use(function(req, res, next){
+	res.header("Access-Control-Allow-Origin", process.env.ALLOW_ORI);
+	next();
+});
 app.get('/', function(req, res) {
+	console.log('Request to /');
 	res.send('This is iWisdom application API');
 });
 
 app.get('/wisdom', function (req, res){
+	console.log('Request to /wisdom');
 	res.send('All wisdom');
 });
 

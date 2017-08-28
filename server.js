@@ -15,7 +15,10 @@ app.get('/', function(req, res) {
 
 app.get('/wisdom', function (req, res){
 	console.log('Request to /wisdom');
-	res.send('All wisdom');
+	res.send([
+          { key: 1, title: "First", description: "Fer des" },
+          { key: 2, title: "Second", description: "Se des" }
+        ]);
 });
 
 var db;

@@ -1,13 +1,22 @@
 var express = require('express');
 var mongodb = require('mongodb');
 var ObjectID = mongodb.ObjectID;
+var database = require('./database');
+var bodyParser = require('body-parser');
+var cors = require('cors');
 
 var app = express();
 
-app.use(function(req, res, next){
-	res.header("Access-Control-Allow-Origin", process.env.ALLOW_ORI);
-	next();
-});
+var corsOptions = {
+	origin: process.env.ALLOW_ORI,
+	optionsSuccessStatus: 200
+}
+
+app.use(cors(corsOptions));
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
+
 app.get('/', function(req, res) {
 	console.log('Request to /');
 	res.send('This is iWisdom application API');
@@ -15,10 +24,25 @@ app.get('/', function(req, res) {
 
 app.get('/wisdom', function (req, res){
 	console.log('Request to /wisdom');
-	res.send([
-          { key: 1, title: "First", description: "Fer des" },
-          { key: 2, title: "Second", description: "Se des" }
-        ]);
+	database.getWisdom(db, function(docs){
+	  res.send(docs);
+	}, function(err) {
+	  console.log(err);
+	});
+
+});
+
+app.post('/add', function (req, res){
+	console.log('Request to /add');
+	var title = req.body.title;
+	var description = req.body.description;
+	var data = {title: title, description: description};
+
+	database.addWisdom(db, data, function(res) {
+		debugger;
+	}, function(err) {
+		debugger;
+	});
 });
 
 var db;
@@ -28,7 +52,6 @@ mongodb.MongoClient.connect(process.env.MONGODB_URI, function(err, database){
 	  console.log(err);
 	  process.exit(1);
 	}
-
 	db = database;
 	console.log("Database connection ready");
 	

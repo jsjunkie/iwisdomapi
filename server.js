@@ -38,8 +38,8 @@ app.post('/add', function (req, res){
 	var description = req.body.description;
 	var data = {title: title, description: description};
 
-	database.addWisdom(db, data, function(res) {
-		debugger;
+	database.addWisdom(db, data, function(result) {
+		res.send(result);
 	}, function(err) {
 		debugger;
 	});

@@ -41,8 +41,23 @@ app.post('/add', function (req, res){
 	database.addWisdom(db, data, function(result) {
 		res.send(result);
 	}, function(err) {
-		debugger;
+		console.log(err);
 	});
+});
+
+app.post('/edit', function(req, res) {
+	console.log('Request to /edit');
+	var title = req.body.title;
+	var description = req.body.description;
+	var key = req.body.key;
+ 	var data = { key: ObjectID(key), title: title, description: description };
+	
+	database.editWisdom(db, data, function(result) {
+		res.send(result);		
+	}, function(err) {
+		console.log(err);
+	});
+	
 });
 
 var db;

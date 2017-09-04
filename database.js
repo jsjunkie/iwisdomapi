@@ -1,5 +1,5 @@
 module.exports.getWisdom = function(db, callback, errorCallback) {
-	var collection = db.collection('iWisdom');
+	var collection = db.collection('Wisdom');
 
 	collection.find({}).toArray(function(err, docs){
 		if (err) {
